@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
@@ -17,5 +18,23 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ));
+    }
+    
+    /**
+     * @Route("/json")
+     */
+    public function returnJson() {
+        $return = [
+            'O' => 'O',
+            'mene' => 'maumau',
+            'ficou' => 'é',
+            'pistola' => [
+                'putasso' => 'gordo',
+                'baitolasso' => 'gordo',
+                'locasso' => 'gordo',
+            ]
+        ];
+        
+        return new JsonResponse($return);
     }
 }
