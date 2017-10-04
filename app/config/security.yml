@@ -6,8 +6,28 @@ security:
     providers:
         in_memory:
             memory: ~
+            
+        administrators:
+            entity: { class: AppBundle:User } 
+            
+        my_custom_hwi_provider:
+            id: my.oauth_aware.user_provider.service
 
     firewalls:
+        secured_area:
+            anonymous: ~
+            oauth:
+                resource_owners:
+                    google:             "/login/check-google"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+
+                oauth_user_provider:
+                    service: my.oauth_aware.user_provider.service
+            logout:
+                path:   /logout
+                target: /
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

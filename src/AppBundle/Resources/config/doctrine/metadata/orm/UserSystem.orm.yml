@@ -1,0 +1,33 @@
+UserSystem:
+    type: entity
+    table: user_system
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+        username:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+        isActive:
+            type: boolean
+            nullable: true
+            default: '1'
+            column: is_active
+        email:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+    lifecycleCallbacks: {  }
