@@ -74,3 +74,8 @@ hwi_oauth:
             client_id:           745994603098-cnfhur7sp7s4fkfjiqlhnb7t6tc2sucv.apps.googleusercontent.com
             client_secret:       sZUEzG0IbfFVot4SQ8Cc_Cfx
             scope:               "email profile"
+            
+        facebook:
+            type:                facebook
+            client_id:           1389469067840199
+            client_secret:       ea26cb665d1585af1887a1bf8a8d1632
