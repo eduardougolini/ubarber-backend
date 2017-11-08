@@ -7,3 +7,9 @@ services:
     my.oauth_aware.user_provider.service:
         class: AppBundle\Service\User\UserAuthorizationService
         arguments: ["@doctrine.orm.entity_manager"]
+    address_service:
+        class: AppBundle\Service\Address\AddressService
+        arguments: ["@doctrine.orm.entity_manager"]
+    barber_service:
+        class: AppBundle\Service\Barber\BarberService
+        arguments: ["@doctrine.orm.entity_manager", "@address_service"]

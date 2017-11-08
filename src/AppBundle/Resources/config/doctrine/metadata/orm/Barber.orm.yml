@@ -1,0 +1,44 @@
+Barber:
+    type: entity
+    table: barber
+    indexes:
+        fk_barber_barber1_idx:
+            columns:
+                - barber_id
+        fk_barber_address1_idx:
+            columns:
+                - address_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 200
+            fixed: false
+    manyToOne:
+        address:
+            targetEntity: Address
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                address_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        barber:
+            targetEntity: Barber
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                barber_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
