@@ -1,0 +1,42 @@
+Schedule:
+    type: entity
+    table: schedule
+    indexes:
+        fk_schedule_user_system1_idx:
+            columns:
+                - user_system_id
+        fk_schedule_barber1_idx:
+            columns:
+                - barber_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        date:
+            type: datetime
+            nullable: false
+    manyToOne:
+        barber:
+            targetEntity: Barber
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                barber_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        userSystem:
+            targetEntity: UserSystem
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_system_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

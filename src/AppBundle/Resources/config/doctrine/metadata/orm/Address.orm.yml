@@ -22,7 +22,7 @@ Address:
             fixed: false
         country:
             type: string
-            nullable: false
+            nullable: true
             length: 200
             fixed: false
             default: Brazil
