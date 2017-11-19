@@ -38,13 +38,14 @@ class BarberScheduleService {
             throw new \Exception("Filtro $filter desconhecido", 400);
         }
         
+        $lowerCaseFilter = strtolower($filter);
+        
         $schedulements = $this->em->createQuery(
-            'SELECT s '
-            . 'FROM :filter f '
-            . 'JOIN AppBundle:Schedulement s '
-                . 'WITH s.:filter = f '
-            . 'WHERE f = :entityId'
-        )->setParameter('filter', $filter)
+            "SELECT s "
+            . "FROM AppBundle:$filter f "
+            . "JOIN AppBundle:Schedule s "
+                . "WITH s.$lowerCaseFilter = f "
+            . "WHERE f = :entityId")
         ->setParameter('entityId', $entityId)
         ->getArrayResult();
         
