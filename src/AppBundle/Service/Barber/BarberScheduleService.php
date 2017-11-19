@@ -38,7 +38,7 @@ class BarberScheduleService {
             throw new \Exception("Filtro $filter desconhecido", 400);
         }
         
-        $lowerCaseFilter = strtolower($filter);
+        $lowerCaseFilter = lcfirst($filter);
         
         $schedulements = $this->em->createQuery(
             "SELECT s "
