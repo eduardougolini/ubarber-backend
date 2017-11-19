@@ -29,6 +29,13 @@ class Barber
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="cnpj", type="string", length=45, nullable=false)
+     */
+    private $cnpj;
+
+    /**
      * @var \Address
      *
      * @ORM\ManyToOne(targetEntity="Address")
@@ -81,6 +88,29 @@ class Barber
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set cnpj
+     *
+     * @param string $cnpj
+     * @return Barber
+     */
+    public function setCnpj($cnpj)
+    {
+        $this->cnpj = $cnpj;
+
+        return $this;
+    }
+
+    /**
+     * Get cnpj
+     *
+     * @return string 
+     */
+    public function getCnpj()
+    {
+        return $this->cnpj;
     }
 
     /**

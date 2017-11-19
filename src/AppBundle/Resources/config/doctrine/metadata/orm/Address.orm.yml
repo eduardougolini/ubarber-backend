@@ -45,4 +45,9 @@ Address:
             type: integer
             nullable: true
             unsigned: false
+        complement:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
     lifecycleCallbacks: {  }

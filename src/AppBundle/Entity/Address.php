@@ -70,6 +70,13 @@ class Address
      */
     private $number;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="complement", type="string", length=300, nullable=true)
+     */
+    private $complement;
+
 
 
     /**
@@ -241,5 +248,28 @@ class Address
     public function getNumber()
     {
         return $this->number;
+    }
+
+    /**
+     * Set complement
+     *
+     * @param string $complement
+     * @return Address
+     */
+    public function setComplement($complement)
+    {
+        $this->complement = $complement;
+
+        return $this;
+    }
+
+    /**
+     * Get complement
+     *
+     * @return string 
+     */
+    public function getComplement()
+    {
+        return $this->complement;
     }
 }
