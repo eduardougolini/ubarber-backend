@@ -34,10 +34,13 @@ class BarberService {
         return $barber->getId();
     }
     
-    public function getRegisteredBarbers() {
+    public function getRegisteredBarbers($name) {
         return $this->em->createQuery(
-                'SELECT b.id, b.name '
-                . 'FROM AppBundle:Barber b')
+                    'SELECT b.id, b.name '
+                    . 'FROM AppBundle:Barber b '
+                    . 'WHERE b.name = :name'
+                )
+                ->setParameter('name',$name)
                 ->getArrayResult();
     }
     

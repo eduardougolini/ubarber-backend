@@ -48,12 +48,11 @@ class BarberController extends Controller {
     }
     
     /**
-     * @Route("/get")
+     * @Route("/get/{name}")
      * @Method({"GET"})
      */
-    public function getRegisteredBarbers() {
-        $barbers = $this->get('barber_service')->getRegisteredBarbers();
-        
+    public function getRegisteredBarbers($name) {
+        $barbers = $this->get('barber_service')->getRegisteredBarbers($name);
         return new JsonResponse($barbers);
     }
     
