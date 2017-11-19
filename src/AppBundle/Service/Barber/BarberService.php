@@ -20,11 +20,12 @@ class BarberService {
         $this->addressService = $addressService;
     }
     
-    public function createNewBarber($name, $city, $state, $zip, $street, $district, $number) {
-        $address = $this->addressService->createNewAddress($city, $state, $zip, $street, $district, $number);
+    public function createNewBarber($name, $cnpj, $city, $state, $zip, $street, $district, $number, $complement) : int {
+        $address = $this->addressService->createNewAddress($city, $state, $zip, $street, $district, $number, $complement);
         
         $barber = new Barber();
         $barber->setName($name);
+        $barber->setCnpj($cnpj);
         $barber->setAddress($address);
         
         $this->em->persist($barber);

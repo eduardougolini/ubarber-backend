@@ -18,11 +18,12 @@ class AddressService {
         $this->em = $em;
     }
     
-    public function createNewAddress($city, $state, $zip, $street, $district, $number) {
+    public function createNewAddress($city, $state, $zip, $street, $district, $number, $complement) : Address {
         $address = new Address();
         $address->setCity($city);
         $address->setDistrict($district);
         $address->setNumber($number);
+        $address->setComplement($complement);
         $address->setState($state);
         $address->setStreet($street);
         $address->setZip($zip);
