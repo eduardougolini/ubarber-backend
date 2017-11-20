@@ -45,6 +45,7 @@ class BarberScheduleService {
             . "FROM AppBundle:$filter f "
             . "JOIN AppBundle:Schedule s "
                 . "WITH s.$lowerCaseFilter = f "
+                    . "AND s.isActive = 1 "
             . "JOIN AppBundle:Barber b "
                 . "WITH b = s.barber "
             . "WHERE f = :entityId")
