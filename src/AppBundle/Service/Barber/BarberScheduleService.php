@@ -41,7 +41,7 @@ class BarberScheduleService {
         $lowerCaseFilter = lcfirst($filter);
         
         $schedulements = $this->em->createQuery(
-            "SELECT s as Schedule, b as Barber "
+            "SELECT s.date, b.name "
             . "FROM AppBundle:$filter f "
             . "JOIN AppBundle:Schedule s "
                 . "WITH s.$lowerCaseFilter = f "
@@ -51,7 +51,7 @@ class BarberScheduleService {
             . "WHERE f = :entityId")
         ->setParameter('entityId', $entityId)
         ->getArrayResult();
-        
+
         return $schedulements;
     }
     
