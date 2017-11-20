@@ -21,6 +21,7 @@ class ScheduleController extends Controller {
 
     /**
      * @Route("/new/{barber}/{userSystem}/{dateTimestamp}")
+     * @Method({"POST"})
      * @ParamConverter("barber", class="AppBundle:Barber")
      * @ParamConverter("userSystem", class="AppBundle:UserSystem")
      */
@@ -36,7 +37,18 @@ class ScheduleController extends Controller {
     }
     
     /**
+     * @Route("/update/{scheduleId}/{status}")
+     * @Method({"POST"})
+     */
+    public function updateScheduleStatus($scheduleId, $status) {
+        $this->get('barber_schedule_service')->updateSchedulementStatus($scheduleId, $status);
+        
+        return new JsonResponse();
+    }
+    
+    /**
      * @Route("/get/barber/{barberId}")
+     * @Method({"GET"})
      */
     public function getBarberSchedulements($barberId) {
         $schedulements = $this->get('barber_schedule_service')->getSchedulements('Barber', $barberId);
@@ -46,6 +58,7 @@ class ScheduleController extends Controller {
     
     /**
      * @Route("/get/user/{userId}")
+     * @Method({"GET"})
      */
     public function getUserSchedulements($userId) {
         $schedulements = $this->get('barber_schedule_service')->getSchedulements('UserSystem', $userId);

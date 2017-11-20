@@ -55,4 +55,12 @@ class BarberScheduleService {
         return $schedulements;
     }
     
+    public function updateSchedulementStatus($scheduleId, $status) {
+        $schedule = $this->em->getRepository(Schedule::class)->find($scheduleId);
+        
+        $schedule->setIsActive(filter_var($status, FILTER_VALIDATE_BOOLEAN));
+        
+        $this->em->flush();
+    }
+    
 }
