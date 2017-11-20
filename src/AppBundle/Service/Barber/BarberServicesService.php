@@ -3,6 +3,7 @@
 namespace AppBundle\Service\Barber;
 
 use Doctrine\ORM\EntityManager;
+use AppBundle\Entity\Service;
 
 /**
  * Description of BarberServicesService
