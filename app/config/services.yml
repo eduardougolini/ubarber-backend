@@ -16,3 +16,13 @@ services:
     barber_schedule_service:
         class: AppBundle\Service\Barber\BarberScheduleService
         arguments: ["@doctrine.orm.entity_manager"]
+        
+    ############################### Listeners ###################################
+    
+    controller_listener:
+        class:      AppBundle\Listener\ControllerListener
+        arguments: 
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller }

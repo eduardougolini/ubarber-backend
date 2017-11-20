@@ -22,16 +22,6 @@ BarberHasUserSystem:
                 barber_id:
                     referencedColumnName: id
             orphanRemoval: false
-        userSystem:
-            targetEntity: UserSystem
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                user_system_id:
-                    referencedColumnName: id
-            orphanRemoval: false
-    manyToOne:
         userRole:
             targetEntity: UserRole
             cascade: {  }
@@ -39,6 +29,15 @@ BarberHasUserSystem:
             inversedBy: null
             joinColumns:
                 user_role_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        userSystem:
+            targetEntity: UserSystem
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_system_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

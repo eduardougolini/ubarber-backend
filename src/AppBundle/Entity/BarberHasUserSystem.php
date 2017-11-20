@@ -27,7 +27,9 @@ class BarberHasUserSystem
     /**
      * @var \UserRole
      *
-     * @ORM\ManyToOne(targetEntity="UserRole")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="UserRole")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_role_id", referencedColumnName="id")
      * })
@@ -77,7 +79,7 @@ class BarberHasUserSystem
      * @param \AppBundle\Entity\UserRole $userRole
      * @return BarberHasUserSystem
      */
-    public function setUserRole(\AppBundle\Entity\UserRole $userRole = null)
+    public function setUserRole(\AppBundle\Entity\UserRole $userRole)
     {
         $this->userRole = $userRole;
 
