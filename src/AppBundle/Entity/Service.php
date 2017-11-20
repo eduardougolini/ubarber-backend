@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Service
  *
- * @ORM\Table(name="service")
+ * @ORM\Table(name="service", indexes={@ORM\Index(name="fk_service_barber1_idx", columns={"barber_id"})})
  * @ORM\Entity
  */
 class Service
@@ -29,19 +29,15 @@ class Service
     private $name;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Barber
      *
-     * @ORM\ManyToMany(targetEntity="Barber", mappedBy="service")
+     * @ORM\ManyToOne(targetEntity="Barber")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="barber_id", referencedColumnName="id")
+     * })
      */
     private $barber;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->barber = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 
     /**
@@ -78,32 +74,22 @@ class Service
     }
 
     /**
-     * Add barber
+     * Set barber
      *
      * @param \AppBundle\Entity\Barber $barber
      * @return Service
      */
-    public function addBarber(\AppBundle\Entity\Barber $barber)
+    public function setBarber(\AppBundle\Entity\Barber $barber = null)
     {
-        $this->barber[] = $barber;
+        $this->barber = $barber;
 
         return $this;
     }
 
     /**
-     * Remove barber
-     *
-     * @param \AppBundle\Entity\Barber $barber
-     */
-    public function removeBarber(\AppBundle\Entity\Barber $barber)
-    {
-        $this->barber->removeElement($barber);
-    }
-
-    /**
      * Get barber
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \AppBundle\Entity\Barber 
      */
     public function getBarber()
     {

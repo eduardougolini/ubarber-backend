@@ -1,6 +1,10 @@
 Service:
     type: entity
     table: service
+    indexes:
+        fk_service_barber1_idx:
+            columns:
+                - barber_id
     id:
         id:
             type: integer
@@ -15,12 +19,14 @@ Service:
             nullable: false
             length: 200
             fixed: false
-    manyToMany:
+    manyToOne:
         barber:
             targetEntity: Barber
             cascade: {  }
-            mappedBy: service
+            mappedBy: null
             inversedBy: null
-            joinTable: null
-            orderBy: null
+            joinColumns:
+                barber_id:
+                    referencedColumnName: id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

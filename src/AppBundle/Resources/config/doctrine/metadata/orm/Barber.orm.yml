@@ -46,21 +46,4 @@ Barber:
                 barber_id:
                     referencedColumnName: id
             orphanRemoval: false
-    manyToMany:
-        service:
-            targetEntity: Service
-            cascade: {  }
-            mappedBy: null
-            inversedBy: barber
-            joinTable:
-                name: barber_has_service
-                joinColumns:
-                    -
-                        name: barber_id
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    -
-                        name: service_id
-                        referencedColumnName: id
-            orderBy: null
     lifecycleCallbacks: {  }
