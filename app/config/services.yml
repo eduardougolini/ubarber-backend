@@ -7,8 +7,13 @@ services:
     my.oauth_aware.user_provider.service:
         class: AppBundle\Service\User\UserAuthorizationService
         arguments: ["@doctrine.orm.entity_manager"]
+    user_role_service:
+        class: AppBundle\Service\User\UserRoleService
     address_service:
         class: AppBundle\Service\Address\AddressService
+        arguments: ["@doctrine.orm.entity_manager"]
+    barber_services_service:
+        class: AppBundle\Service\Barber\BarberServicesService
         arguments: ["@doctrine.orm.entity_manager"]
     barber_service:
         class: AppBundle\Service\Barber\BarberService
@@ -16,3 +21,14 @@ services:
     barber_schedule_service:
         class: AppBundle\Service\Barber\BarberScheduleService
         arguments: ["@doctrine.orm.entity_manager"]
+        
+    ############################### Listeners ###################################
+    
+    controller_listener:
+        class:      AppBundle\Listener\ControllerListener
+        arguments: 
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
+            - "@user_role_service"
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller }

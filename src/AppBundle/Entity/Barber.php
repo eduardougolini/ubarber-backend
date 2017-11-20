@@ -55,6 +55,28 @@ class Barber
      */
     private $barber;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Service", inversedBy="barber")
+     * @ORM\JoinTable(name="barber_has_service",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="barber_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="service_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $service;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->service = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -157,5 +179,38 @@ class Barber
     public function getBarber()
     {
         return $this->barber;
+    }
+
+    /**
+     * Add service
+     *
+     * @param \AppBundle\Entity\Service $service
+     * @return Barber
+     */
+    public function addService(\AppBundle\Entity\Service $service)
+    {
+        $this->service[] = $service;
+
+        return $this;
+    }
+
+    /**
+     * Remove service
+     *
+     * @param \AppBundle\Entity\Service $service
+     */
+    public function removeService(\AppBundle\Entity\Service $service)
+    {
+        $this->service->removeElement($service);
+    }
+
+    /**
+     * Get service
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getService()
+    {
+        return $this->service;
     }
 }
