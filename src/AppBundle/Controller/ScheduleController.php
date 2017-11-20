@@ -5,12 +5,12 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Entity\Barber;
 use AppBundle\Entity\UserSystem;
 use AppBundle\Entity\Schedule;
+use AppBundle\Annotation\ValidateUser;
 
 /**
  * Description of ScheduleController
@@ -48,6 +48,7 @@ class ScheduleController extends Controller {
     
     /**
      * @Route("/get/barber/{barberId}")
+     * @ValidateUser("MANAGER")
      * @Method({"GET"})
      */
     public function getBarberSchedulements($barberId) {
