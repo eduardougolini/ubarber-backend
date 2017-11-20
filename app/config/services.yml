@@ -12,6 +12,9 @@ services:
     address_service:
         class: AppBundle\Service\Address\AddressService
         arguments: ["@doctrine.orm.entity_manager"]
+    barber_services_service:
+        class: AppBundle\Service\Barber\BarberServicesService
+        arguments: ["@doctrine.orm.entity_manager"]
     barber_service:
         class: AppBundle\Service\Barber\BarberService
         arguments: ["@doctrine.orm.entity_manager", "@address_service"]
