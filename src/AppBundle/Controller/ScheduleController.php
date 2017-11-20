@@ -57,10 +57,12 @@ class ScheduleController extends Controller {
     }
     
     /**
-     * @Route("/get/user/{userId}")
+     * @Route("/get/user")
      * @Method({"GET"})
      */
-    public function getUserSchedulements($userId) {
+    public function getUserSchedulements() {
+        $userId = $this->getUser()->getId();
+        
         $schedulements = $this->get('barber_schedule_service')->getSchedulements('UserSystem', $userId);
         
         return new JsonResponse($schedulements);
