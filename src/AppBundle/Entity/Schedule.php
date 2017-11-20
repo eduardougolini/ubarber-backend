@@ -29,6 +29,13 @@ class Schedule
     private $date;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_active", type="boolean", nullable=true)
+     */
+    private $isActive;
+
+    /**
      * @var \Barber
      *
      * @ORM\ManyToOne(targetEntity="Barber")
@@ -81,6 +88,29 @@ class Schedule
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return Schedule
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
     }
 
     /**

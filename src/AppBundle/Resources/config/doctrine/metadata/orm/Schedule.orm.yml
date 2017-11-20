@@ -20,6 +20,11 @@ Schedule:
         date:
             type: datetime
             nullable: false
+        isActive:
+            type: boolean
+            nullable: true
+            default: '1'
+            column: is_active
     manyToOne:
         barber:
             targetEntity: Barber
