@@ -46,7 +46,7 @@ class DefaultController extends Controller
     
     /**
      * @Route("/json")
-     * @validateUser()
+     * @validateUser("ADMIN")
      */
     public function returnJson() {
         $return = [

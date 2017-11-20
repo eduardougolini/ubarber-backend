@@ -7,6 +7,8 @@ services:
     my.oauth_aware.user_provider.service:
         class: AppBundle\Service\User\UserAuthorizationService
         arguments: ["@doctrine.orm.entity_manager"]
+    user_role_service:
+        class: AppBundle\Service\User\UserRoleService
     address_service:
         class: AppBundle\Service\Address\AddressService
         arguments: ["@doctrine.orm.entity_manager"]
@@ -24,5 +26,6 @@ services:
         arguments: 
             - "@doctrine.orm.entity_manager"
             - "@security.token_storage"
+            - "@user_role_service"
         tags:
             - { name: kernel.event_listener, event: kernel.controller }

@@ -9,6 +9,7 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use AppBundle\Entity\UserSystem;
 use AppBundle\Entity\User;
 use AppBundle\Annotation\ValidateUser;
+use AppBundle\Service\User\UserRoleService;
 
 /**
  * Description of ControllerListener
@@ -16,11 +17,12 @@ use AppBundle\Annotation\ValidateUser;
  * @author eduardo - edu.ugolini2@gmail.com
  */
 class ControllerListener {
-    private $em, $tokenStorage;
+    private $em, $tokenStorage, $userRoleService;
     
-    public function __construct(EntityManager $em, TokenStorage $tokenStorage) {
+    public function __construct(EntityManager $em, TokenStorage $tokenStorage, UserRoleService $userRoleService) {
         $this->em = $em;
         $this->tokenStorage = $tokenStorage;
+        $this->userRoleService = $userRoleService;
     }
     
     public function onKernelController(FilterControllerEvent $event) {
@@ -56,9 +58,15 @@ class ControllerListener {
             )->setParameter('userSystemId', $user)
             ->getResult();
             
-            if (!in_array($validUserAnnotation->getNeededRole(), $userSystemRoles[0])) {
-                throw new \Exception('Usuário sem acesso a página requerida', 403);
+            foreach ($userSystemRoles as $userSystemRole) {
+                $roleInheritance = $this->userRoleService->getRoleInheritance($userSystemRole['name']);
+
+                if (array_search($validUserAnnotation->getNeededRole(), $roleInheritance) !== false) {
+                    return;
+                }
             }
+            
+            throw new \Exception('Usuário sem acesso a página requerida', 403);
         }
     }
     
