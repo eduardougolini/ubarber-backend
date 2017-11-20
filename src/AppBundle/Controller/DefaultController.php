@@ -21,17 +21,17 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/getUserRoles")
+     * @Route("/getUserData")
      */
-    public function getUserRoles() {
+    public function getUserData() {
         $user = $this->getUser();
         
         if (! $user instanceof User) {
             return new JsonResponse();
         }
         
-        $userSystemRoles = $this->getDoctrine()->getManager()->createQuery(
-            'SELECT ur.name '
+        $userSystemData = $this->getDoctrine()->getManager()->createQuery(
+            "SELECT us.name as name, GROUP_CONCAT(ur.name SEPARATOR ' - ') as role "
             . 'FROM AppBundle:UserSystem us '
             . 'JOIN AppBundle:BarberHasUserSystem bhus '
                 . 'WITH bhus.userSystem = us '
@@ -41,7 +41,7 @@ class DefaultController extends Controller
         )->setParameter('userSystemId', $user)
         ->getResult();
         
-        return new JsonResponse($userSystemRoles);
+        return new JsonResponse($userSystemData);
     }
     
     /**
