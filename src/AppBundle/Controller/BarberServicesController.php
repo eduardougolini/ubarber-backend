@@ -9,8 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Entity\Barber;
-use AppBundle\Entity\UserSystem;
-use AppBundle\Entity\Schedule;
+use AppBundle\Entity\Service;
 
 /**
  * Description of BarberServicesController
@@ -29,6 +28,19 @@ class BarberServicesController extends Controller {
         $serviceName = $request->get('serviceName');
         
         $this->get('barber_services_service')->addServiceToBarber($barber, $serviceName);
+        
+        return new JsonResponse();
+    }
+    
+    /**
+     * @Route("/update/{service}")
+     * @ParamConverter("service", class="AppBundle:Service")
+     */
+    public function updateBarberService(Request $request, Service $service) {
+        $field = $request->get('field');
+        $value = $request->get('value');
+        
+        $this->get('barber_services_service')->updateBarberService($service, $field, $value);
         
         return new JsonResponse();
     }
