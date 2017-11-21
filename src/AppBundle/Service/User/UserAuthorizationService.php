@@ -52,7 +52,11 @@ class UserAuthorizationService extends OAuthUserProvider implements OAuthAwareUs
     private function createUserSystemForSocialMediaWithSocialId($socialNetwork, $socialUserData){
         $user = new UserSystem();
         $user->setName($socialUserData['name']);
-        $user->setUserImage($socialUserData['picture']);
+        if (is_array($socialUserData['picture'])) {
+                $user->setUserImage($socialUserData['picture']['data']['url']);
+            } else {
+                $user->setUserImage($socialUserData['picture']);
+            }
         $this->em->persist($user);
         
         $socialLoginId = new SocialLoginId();
@@ -76,7 +80,11 @@ class UserAuthorizationService extends OAuthUserProvider implements OAuthAwareUs
         
         if ($socialUser){
             $user = $socialUser->getUserSystem();
-            $user->setUserImage($socialUserData['picture']);
+            if (is_array($socialUserData['picture'])) {
+                $user->setUserImage($socialUserData['picture']['data']['url']);
+            } else {
+                $user->setUserImage($socialUserData['picture']);
+            }
             $this->em->flush();
             return $this->createUserInterfaceInstance($user->getId(), $user->getName());
         }
