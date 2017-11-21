@@ -27,7 +27,7 @@ class ScheduleController extends Controller {
     public function addNewSchedulement(Barber $barber, string $dateTimestamp) {
         $userSystem = $this->getDoctrine()->getManager()->getRepository(UserSystem::class)->find($this->getUser()->getId());
         $date = new \DateTime();
-        $date->setTimestamp($dateTimestamp);
+        $date->setTimestamp(intval($dateTimestamp));
         
         $schedule = $this->get('barber_schedule_service')->addNewSchedulement($barber, $userSystem, $date);
         
