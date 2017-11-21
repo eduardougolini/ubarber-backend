@@ -42,7 +42,7 @@ class BarberScheduleService {
         $lowerCaseFilter = lcfirst($filter);
         
         $schedulements = $this->em->createQuery(
-            "SELECT s.date, b.name "
+            "SELECT s.id, s.date, b.name "
             . "FROM AppBundle:$filter f "
             . "JOIN AppBundle:Schedule s "
                 . "WITH s.$lowerCaseFilter = f "
