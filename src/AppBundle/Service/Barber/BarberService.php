@@ -47,12 +47,21 @@ class BarberService {
         $this->em->flush();
     }
     
-    public function getRegisteredBarbers($name) {
+    public function getRegisteredBarbersByName($name) {
         return $this->em->createQuery(
             'SELECT b.id, b.name '
                 . 'FROM AppBundle:Barber b '
                 . 'WHERE b.name LIKE :name'
         )->setParameter('name', "%$name%")
+        ->getArrayResult();
+    }
+    
+    public function getRegisteredBarbersById($id) {
+        return $this->em->createQuery(
+            'SELECT b.id, b.name '
+                . 'FROM AppBundle:Barber b '
+                . 'WHERE b = :barberId'
+        )->setParameter('barberId', "$id")
         ->getArrayResult();
     }
     

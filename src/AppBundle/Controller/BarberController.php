@@ -63,11 +63,20 @@ class BarberController extends Controller {
     }
     
     /**
+     * @Route("/get/{id}", requirements={"id": "\d+"})
+     * @Method({"GET"})
+     */
+    public function getRegisteredBarbersById($id) {
+        $barbers = $this->get('barber_service')->getRegisteredBarbersById($id);
+        return new JsonResponse($barbers);
+    }
+    
+    /**
      * @Route("/get/{name}")
      * @Method({"GET"})
      */
-    public function getRegisteredBarbers($name) {
-        $barbers = $this->get('barber_service')->getRegisteredBarbers($name);
+    public function getRegisteredBarbersByName($name) {
+        $barbers = $this->get('barber_service')->getRegisteredBarbersByName($name);
         return new JsonResponse($barbers);
     }
     
