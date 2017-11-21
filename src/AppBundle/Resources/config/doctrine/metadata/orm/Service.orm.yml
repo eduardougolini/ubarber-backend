@@ -19,6 +19,11 @@ Service:
             nullable: false
             length: 200
             fixed: false
+        isActive:
+            type: boolean
+            nullable: true
+            default: '1'
+            column: is_active
     manyToOne:
         barber:
             targetEntity: Barber
