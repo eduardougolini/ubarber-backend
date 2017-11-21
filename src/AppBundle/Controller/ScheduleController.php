@@ -20,12 +20,12 @@ use AppBundle\Annotation\ValidateUser;
 class ScheduleController extends Controller {
 
     /**
-     * @Route("/new/{barber}/{userSystem}/{dateTimestamp}")
+     * @Route("/new/{barber}/{dateTimestamp}")
      * @Method({"POST"})
      * @ParamConverter("barber", class="AppBundle:Barber")
-     * @ParamConverter("userSystem", class="AppBundle:UserSystem")
      */
-    public function addNewSchedulement(Barber $barber, UserSystem $userSystem, string $dateTimestamp) {
+    public function addNewSchedulement(Barber $barber, string $dateTimestamp) {
+        $userSystem = $this->getDoctrine()->getManager()->getRepository(UserSystem::class)->find($this->getUser()->getId());
         $date = new \DateTime();
         $date->setTimestamp($dateTimestamp);
         
