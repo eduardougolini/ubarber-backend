@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use AppBundle\Annotation\ValidateUser;
 use AppBundle\Entity\Barber;
 
 /**
@@ -80,4 +81,25 @@ class BarberController extends Controller {
         return new JsonResponse($barbers);
     }
     
+    /**
+     * @ValidateUser("ADMIN")
+     * @Route("/getOwnBarber")
+     */
+    public function getAdminUserBarber() {
+        $userSystemId = $this->getUser()->getId();
+        $em = $this->getDoctrine()->getManager();
+        
+        $barbers = $em->createQuery(
+            'SELECT b.id, b.name '
+                . 'FROM AppBundle:UserSystem us '
+                . 'JOIN AppBundle:BarberHasUserSystem bhus '
+                    . 'WITH bhus.userSystem = :userSystem '
+                . 'JOIN AppBundle:Barber b '
+                    . 'WITH b = bhus.barber '
+                . 'WHERE us = :userSystem'
+        )->setParameter('userSystem', $userSystemId)
+        ->getArrayResult();
+
+        return new JsonResponse($barbers);
+    }
 }
