@@ -31,7 +31,7 @@ class DefaultController extends Controller
         }
         
         $userSystemData = $this->getDoctrine()->getManager()->createQuery(
-            "SELECT us.name as name, GROUP_CONCAT(ur.name SEPARATOR ' - ') as role "
+            "SELECT us.name as name, us.userImage as userImage, GROUP_CONCAT(ur.name SEPARATOR ' - ') as role "
             . 'FROM AppBundle:UserSystem us '
             . 'JOIN AppBundle:BarberHasUserSystem bhus '
                 . 'WITH bhus.userSystem = us '

@@ -49,6 +49,13 @@ class UserSystem
      */
     private $email;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="user_image", type="string", length=500, nullable=true)
+     */
+    private $userImage;
+
 
 
     /**
@@ -151,5 +158,28 @@ class UserSystem
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set userImage
+     *
+     * @param string $userImage
+     * @return UserSystem
+     */
+    public function setUserImage($userImage)
+    {
+        $this->userImage = $userImage;
+
+        return $this;
+    }
+
+    /**
+     * Get userImage
+     *
+     * @return string 
+     */
+    public function getUserImage()
+    {
+        return $this->userImage;
     }
 }

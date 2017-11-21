@@ -31,7 +31,7 @@ class UserAuthorizationService extends OAuthUserProvider implements OAuthAwareUs
         
         $this->validateSocialData($responseData, $socialNetwork);
         
-        return $this->loadUserBySocialId($socialNetwork, $responseData['id'], $responseData['name']);
+        return $this->loadUserBySocialId($socialNetwork, $responseData);
     }
     
     private function validateSocialData($responseData, $serviceName){
@@ -49,14 +49,15 @@ class UserAuthorizationService extends OAuthUserProvider implements OAuthAwareUs
         }
     }
     
-    private function createUserSystemForSocialMediaWithSocialId($socialNetwork, $socialUserId, $name){
+    private function createUserSystemForSocialMediaWithSocialId($socialNetwork, $socialUserData){
         $user = new UserSystem();
-        $user->setName($name);
+        $user->setName($socialUserData['name']);
+        $user->setUserImage($socialUserData['picture']);
         $this->em->persist($user);
         
         $socialLoginId = new SocialLoginId();
         $socialLoginId->setSocialNetwork($socialNetwork);
-        $socialLoginId->setSocialUserId($socialUserId);
+        $socialLoginId->setSocialUserId($socialUserData['id']);
         $socialLoginId->setUserSystem($user);
         
         $this->em->persist($socialLoginId);
@@ -66,20 +67,22 @@ class UserAuthorizationService extends OAuthUserProvider implements OAuthAwareUs
         return $user;
     }
     
-    private function loadUserBySocialId($socialNetwork, $socialUserId, $name){
+    private function loadUserBySocialId($socialNetwork, $socialUserData){
         
         $socialUser = $this->em->getRepository("AppBundle:SocialLoginId")->findOneBy([
             'socialNetwork' => $socialNetwork,
-            'socialUserId'  => $socialUserId
+            'socialUserId'  => $socialUserData['id']
         ]);
         
         if ($socialUser){
             $user = $socialUser->getUserSystem();
+            $user->setUserImage($socialUserData['picture']);
+            $this->em->flush();
             return $this->createUserInterfaceInstance($user->getId(), $user->getName());
         }
         
-        $newUserSystem = $this->createUserSystemForSocialMediaWithSocialId($socialNetwork, $socialUserId, $name);
-        return $this->createUserInterfaceInstance($newUserSystem->getId(), $name);
+        $newUserSystem = $this->createUserSystemForSocialMediaWithSocialId($socialNetwork, $socialUserData);
+        return $this->createUserInterfaceInstance($newUserSystem->getId(), $socialUserData['name']);
         
     }
     

@@ -30,4 +30,10 @@ UserSystem:
             nullable: true
             length: 45
             fixed: false
+        userImage:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            column: user_image
     lifecycleCallbacks: {  }
