@@ -90,12 +90,14 @@ class BarberController extends Controller {
         $em = $this->getDoctrine()->getManager();
         
         $barbers = $em->createQuery(
-            'SELECT b.id, b.name '
+            'SELECT b.id, b.name, b.cnpj, a.zip, a.street, a.number, a.complement, a.district, a.city, a.state '
                 . 'FROM AppBundle:UserSystem us '
                 . 'JOIN AppBundle:BarberHasUserSystem bhus '
                     . 'WITH bhus.userSystem = :userSystem '
                 . 'JOIN AppBundle:Barber b '
                     . 'WITH b = bhus.barber '
+                . 'JOIN AppBundle:Address a '
+                    . 'WITH b.address = a '
                 . 'WHERE us = :userSystem'
         )->setParameter('userSystem', $userSystemId)
         ->getArrayResult();
