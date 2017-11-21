@@ -26,6 +26,7 @@ class BarberScheduleService {
         $schedule->setBarber($barber);
         $schedule->setUserSystem($userSystem);
         $schedule->setDate($dateTime);
+        $schedule->setIsActive(1);
         
         $this->em->persist($schedule);
         $this->em->flush();
