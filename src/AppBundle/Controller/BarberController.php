@@ -104,4 +104,23 @@ class BarberController extends Controller {
 
         return new JsonResponse($barbers);
     }
+
+    /**
+     * @Route("/about/{barber}")
+     */
+    public function about($barber) {
+        $userSystemId = $this->getUser()->getId();
+        $em = $this->getDoctrine()->getManager();
+        
+        $barbers = $em->createQuery(
+            'SELECT b.id, b.name, b.cnpj, a.zip, a.street, a.number, a.complement, a.district, a.city, a.state '
+                . 'FROM AppBundle:Barber b '
+                . 'JOIN AppBundle:Address a '
+                    . 'WITH b.address = a '
+                . 'WHERE b = :idBarber'
+        )->setParameter('idBarber', $barber)
+        ->getArrayResult();
+
+        return new JsonResponse($barbers);
+    }
 }

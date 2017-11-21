@@ -43,6 +43,32 @@ class DefaultController extends Controller
         
         return new JsonResponse($userSystemData);
     }
+
+    /**
+     * @Route("/getUserRole/{barber}")
+     */
+    public function getUserRole($barber) {
+        $user = $this->getUser();
+        
+        if (! $user instanceof User) {
+            return new JsonResponse();
+        }
+        
+        $userSystemData = $this->getDoctrine()->getManager()->createQuery(
+            "SELECT us.name as name, us.userImage as userImage, GROUP_CONCAT(ur.name SEPARATOR ' - ') as role "
+            . 'FROM AppBundle:UserSystem us '
+            . 'JOIN AppBundle:BarberHasUserSystem bhus '
+                . 'WITH bhus.userSystem = us '
+            . 'JOIN AppBundle:UserRole ur '
+                . 'WITH ur = bhus.userRole '
+            . 'WHERE us = :userSystemId and bhus.barber = :idbarber'
+        )->setParameter('userSystemId', $user)
+        ->setParameter('idbarber', $barber)
+
+        ->getResult();
+        
+        return new JsonResponse($userSystemData);
+    }
     
     /**
      * @Route("/json")
