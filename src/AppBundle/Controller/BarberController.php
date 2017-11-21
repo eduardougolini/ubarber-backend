@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use AppBundle\Entity\Barber;
 
 /**
  * Description of BarberController
@@ -45,6 +47,19 @@ class BarberController extends Controller {
         );
         
         return new JsonResponse($barberId);
+    }
+    
+    /**
+     * @Route("/edit/{barber}")
+     * @ParamConverter("barber", class="AppBundle:Barber")
+     */
+    public function editRegisteredBarber(Request $request, Barber $barber) {
+        $field = $request->get('field');
+        $value = $request->get('value');
+        
+        $this->get('barber_service')->editBarber($barber, $field, $value);
+        
+        return new JsonResponse();
     }
     
     /**

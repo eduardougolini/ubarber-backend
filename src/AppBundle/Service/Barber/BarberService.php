@@ -34,6 +34,19 @@ class BarberService {
         return $barber->getId();
     }
     
+    public function editBarber(Barber $barber, $field, $value) {
+        $methodCall = 'set' . ucfirst($field);
+        
+        if (property_exists($barber, $field)) {
+            $barber->$methodCall($value);
+        } else {
+            $address = $barber->getAddress();
+            $address->$methodCall($value);
+        }
+        
+        $this->em->flush();
+    }
+    
     public function getRegisteredBarbers($name) {
         return $this->em->createQuery(
                     'SELECT b.id, b.name '
