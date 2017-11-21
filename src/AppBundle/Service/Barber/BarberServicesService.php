@@ -24,6 +24,8 @@ class BarberServicesService {
         
         $service->setName($serviceName);
         $service->setBarber($barber);
+        $service->setIsActive(1);
+
         
         $this->em->persist($service);
         $this->em->flush();
