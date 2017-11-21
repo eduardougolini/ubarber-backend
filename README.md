@@ -1,10 +1,18 @@
 ubarber
 =======
 
-Para rodar o servidor web, de um cd para a pasta do projeto e rode o comando:
+clone o repositório na pasta *var/www*, de um cd para esta pasta e rode os seguintes comando:
 
-`php app/console server:start`
+`composer install`
 
-Acesse a url `http://127.0.0.1:8000`
+`chmod 777` na pasta app/
 
-Rota com o retorno Json de teste `http://127.0.0.1:8000/json`
+de um cd para dentro de *web* e clone o repositório https://gitlab.com/uBarber/uBarber-frontend.git
+
+de um cd para dentro de *uBarber-frontend/vue* e rode os seguintes comandos:
+
+`npm install`
+
+`npm run build`
+
+configure o apache para responder o uBarber.com 
