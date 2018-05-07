@@ -55,6 +55,7 @@ class BarberController extends Controller {
      * @ParamConverter("barber", class="AppBundle:Barber")
      */
     public function editRegisteredBarber(Request $request, Barber $barber) {
+	return null; 
         $field = $request->get('field');
         $value = $request->get('value');
         
